@@ -24,7 +24,9 @@ A note on the derivation
 
 Formula
 
-<p align="center"><img src="./img_formula/d1_d2.png" alt="d1d2" align="middle" />, with S as the strike price, K as the price of the underlying security, r as the risk-free rate, q the dividend rate, sigma as the standard deviation of the underlying security and T-t being the time to expiration.</p>
+<p align="center"><img src="./img_formula/d1_d2.png" alt="d1d2" align="middle" />,</p>
+
+with S as the strike price, K as the price of the underlying security, r as the risk-free rate, q the dividend rate, sigma as the standard deviation of the underlying security and T-t being the time to expiration.
 
 - Call (with N as the c.d.f. of a standard normal):
 
