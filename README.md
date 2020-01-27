@@ -40,7 +40,7 @@ with S as the strike price, K as the price of the underlying security, r as the 
 
 ### About this code:
 
-#### main.py
+#### BSM.py
 This script contains the functions that actually execute the Black-Scholes-Merton calculations. It only needs the math package.
 
 #### example.py 

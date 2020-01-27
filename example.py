@@ -14,7 +14,7 @@ def getpack(package):
         # import package
 
 
-from main import *
+from BSM import *
 pd = getpack("pandas")
 yf = getpack("yfinance")
 dt = getpack("datetime")
