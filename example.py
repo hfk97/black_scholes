@@ -1,16 +1,18 @@
-#needed for the next function
+# needed for the next function
 import subprocess
 import importlib
+import sys
+
 
 # function that imports a library if it is installed, else installs it and then imports it
 def getpack(package):
     try:
-        return (importlib.import_module(package))
+        return importlib.import_module(package)
         # import package
     except ImportError:
         subprocess.call([sys.executable, "-m", "pip", "install", package],
-  stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        return (importlib.import_module(package))
+                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return importlib.import_module(package)
         # import package
 
 
@@ -41,7 +43,7 @@ def main():
 
         elif sel == '0':
             custom()
-            log += ('0')
+            log += '0'
 
         elif sel == '1':
             results = results.append(ticker_based())
@@ -57,6 +59,7 @@ def main():
 
     print("Thank you.\nGoodbye.")
 
+
 def custom():
     option = input("Please enter the option type (put/call): ")
     s = float(input("Please enter the underlying security's price: "))
@@ -67,7 +70,7 @@ def custom():
     t = float(input("Please enter the number of months to maturity: ")) / 12.0
 
     # if you want to check what is passed to the function uncomment below
-    #print(f"black_sholes({s},{k},{t},{r},{sigma},{option},{q})")
+    # print(f"black_sholes({s},{k},{t},{r},{sigma},{option},{q})")
 
     res = black_sholes(s, k, t, r, sigma, option, q)
 
@@ -86,7 +89,7 @@ def ticker_based():
     Ticker = input("Please enter the Ticker of the underlying security: ")
     option = input("Please enter the option type (put/call): ")
 
-    #get data
+    # get data
     data_tick = yf.Ticker(Ticker)
 
     # get standard deviation
@@ -105,7 +108,6 @@ def ticker_based():
         div = float(inp)
     del inp
 
-
     # current stock price
     s = data_tick.history(period="1y").Close[-1]
 
@@ -115,14 +117,15 @@ def ticker_based():
     # show options expirations
     dates = data_tick.options
     print("Following option expiration dates are available")
-    for n,i in enumerate(dates):
+    for n, i in enumerate(dates):
         print(f"{i} ({n})")
 
     print("\n")
 
-    date_sel = [int(x) for x in input("Please selected an expiration date by using the ID-Numbers (X) of the dates named above. You can make one or multiple selections seperated by a space.").split()]
+    date_sel = [int(x) for x in input("Please selected an expiration date by using the ID-Numbers (X) of the dates named"
+                                      " above. You can make one or multiple selections seperated by a space.").split()]
 
-    results = pd.DataFrame(columns=["ID","Type","Expiration date","Strike price","Current price","Estimated price"])
+    results = pd.DataFrame(columns=["ID", "Type", "Expiration date", "Strike price", "Current price", "Estimated price"])
 
     for i in date_sel:
         if option == "call":
@@ -146,14 +149,15 @@ def ticker_based():
             k = row[2]
 
             # if you want to check what is passed to the function uncomment below
-            #print(f"black_sholes({s},{k},{t},{r},{sigma},{option},{q})")
+            # print(f"black_sholes({s},{k},{t},{r},{sigma},{option},{q})")
 
             est = black_sholes(s, k, t, r, sigma, option, q)
 
-            results.loc[len(results)] = [symb,option,end,k,current_price,est]
+            results.loc[len(results)] = [symb, option, end, k, current_price, est]
 
     print(results)
 
     return results
+
 
 main()
