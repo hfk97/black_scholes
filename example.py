@@ -36,7 +36,7 @@ def main():
     while True:
         sel = input("\nIf you want to run a custom simulation enter '0'.\n"
                     "If you want to run simulations for a specific ticker based on option type and expiration dates "
-                    "enter '1'.\n\nTo end the programm enter 'q'")
+                    "enter '1'.\n\nTo end the programm enter 'q'.\n")
 
         if sel == 'q':
             break
@@ -54,7 +54,7 @@ def main():
 
     if '1' in log:
         if input("If you want to export the Black-Scholes data press any key and hit enter, else just press enter: "):
-            results.to_csv("./Black_Scholes_Sim_"+dt.datetime.now().strftime("%m-%d-%Y-%m-%H"))
+            results.to_csv(f"./Black_Scholes_Sims_{dt.datetime.now().strftime('%m-%d-%Y-%H-%M')}.csv")
             print("Data exported.\n")
 
     print("Thank you.\nGoodbye.")
@@ -92,8 +92,11 @@ def ticker_based():
     # get data
     data_tick = yf.Ticker(Ticker)
 
+    # current stock price
+    s = data_tick.history(period="1y").Close[-1]
+
     # get standard deviation
-    sigma = data_tick.history(period="5y").Close.std()
+    sigma = data_tick.history(period="5y").Close.std()/s
 
     # get risk-free rate (i.e. 3-month t-bill)
     r = yf.Ticker("^IRX").history(period="1y").Close[-1]/100
@@ -107,9 +110,6 @@ def ticker_based():
     if len(inp) > 0:
         div = float(inp)
     del inp
-
-    # current stock price
-    s = data_tick.history(period="1y").Close[-1]
 
     # dividend rate
     q = (div*4)/s
