@@ -45,7 +45,7 @@ This script contains the functions that actually execute the Black-Scholes-Merto
 
 #### example.py 
 
-Has to options to run Black-Scholes-Merton calculations:
+Has two options to run Black-Scholes-Merton calculations:
 1. Option 0: enter all necessary variables manually and calculate the BSM-price of this custom option.
 
 2. Option 1: choose a Ticker, choose the type of option, optionally enter the expected dividend and choose one or multiple option expiration dates. Based on this BSM-prices are calculated for all options of the selected type at the selected expiration date. The results of 'Option 1' calculations can be exported as a csv. 
